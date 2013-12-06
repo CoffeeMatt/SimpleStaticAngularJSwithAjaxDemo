@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <title>Angular.js Static Demo</title>
+    <script src="angular.js"></script>
+</head>
+<body ng-controller="messageController">
+    Hello, here is a message:<br />
+    {{message}}
+
+    <br /><br />
+    <button ng-click="simpleChange();">Update message with two-way binding javascript.</button><br />
+    <button ng-click="ajaxChange();">Update message with two-way binding and an ajax call.</button>
+
+    <script type="text/javascript">
+        var myApp = angular.module('myApp', []);
+        
+        myApp.controller('messageController', function ($scope, $http) {
+
+            $scope.message = 'Initial message!';
+
+            $scope.simpleChange = function () {
+                $scope.message = "Message changed!";
+            };
+
+            $scope.ajaxChange = function () {
+                $http.get('message.html', {})
+                .then(function (data, status, headers, config) {
+                    $scope.message = data.data;
+                });
+            };
+        });
+
+    </script>
+</body>
+</html>
